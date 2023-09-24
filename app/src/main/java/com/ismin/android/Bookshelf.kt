@@ -1,6 +1,9 @@
 package com.ismin.android
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.lang.IllegalArgumentException
+import java.time.LocalDate
 
 class Bookshelf {
 
@@ -31,6 +34,11 @@ class Bookshelf {
 
     fun getTotalNumberOfBooks(): Int {
         return storage.size
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getBooksPublishedBefore(date: LocalDate): List<Book> {
+        return storage.filterValues { it.date.isBefore(date) }.values.sortedBy { it.title }
     }
 
 }
